@@ -12,6 +12,7 @@ package bean;
 public class Request {
     
     private String req_id;
+    private String req_title;
     private String req_detail;
     private String req_date;
     private String req_status;
@@ -23,6 +24,14 @@ public class Request {
 
     public void setReq_id(String req_id) {
         this.req_id = req_id;
+    }
+    
+    public String getReq_title() {
+        return req_title;
+    }
+
+    public void setReq_title(String req_title) {
+        this.req_title = req_title;
     }
 
     public String getReq_detail() {

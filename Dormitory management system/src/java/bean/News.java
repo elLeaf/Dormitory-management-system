@@ -14,6 +14,7 @@ import java.sql.Date;
 public class News {
     
     private String news_id;
+    private String news_title;
     private String news_detail;
     private Date news_date;
 
@@ -25,6 +26,14 @@ public class News {
         this.news_id = news_id;
     }
 
+    public String getNews_title() {
+        return news_title;
+    }
+
+    public void setNews_title(String news_title) {
+        this.news_title = news_title;
+    }
+    
     public String getNews_detail() {
         return news_detail;
     }

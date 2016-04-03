@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/Dormitory_management_system"/>
+<Context path="/Dormitory_management_system">
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="dormdata" password="jackp3bk" type="javax.sql.DataSource" url="jdbc:mysql://db4free.net:3306/mydormisad?zeroDateTimeBehavior=convertToNull" username="lightday"/>
+</Context>
