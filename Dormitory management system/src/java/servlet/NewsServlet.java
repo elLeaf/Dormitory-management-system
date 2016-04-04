@@ -5,7 +5,6 @@
  */
 package servlet;
 
-import model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -16,16 +15,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Renter;
-import util.UserUtilities;
+import model.News;
+import util.NewsUtilities;
 
 /**
  *
  * @author adisorn
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/Login"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "NewsServlet", urlPatterns = {"/news.view"})
+public class NewsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,20 +40,11 @@ public class LoginServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             ServletContext clx = getServletContext();
             Connection conn = (Connection) clx.getAttribute("connection");
-            UserUtilities uutil = new UserUtilities(conn);
-            String usn = (String) request.getParameter("username");
-            String psw = (String) request.getParameter("psw");
-            User user = uutil.getUser(usn, psw);
-            Renter renter = uutil.getRenter(usn);
-            if(user != null && renter != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("user", user);
-                session.setAttribute("renter", renter);
-                response.sendRedirect("index.jsp");
-            }
-            else {
-                request.setAttribute("warningPsw", "Username หรือ Password ผิด กรุณาลองใหม่อีกครั้ง");
-                RequestDispatcher forward = request.getRequestDispatcher("login.jsp");
+            NewsUtilities nutil = new NewsUtilities(conn);
+            News news = nutil.getNews(request.getParameter("news_id"));
+            if(news != null) {
+                request.setAttribute("news", news);
+                RequestDispatcher forward = request.getRequestDispatcher("news.jsp");
                 forward.forward(request, response);
             }
         }

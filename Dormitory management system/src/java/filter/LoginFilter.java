@@ -5,7 +5,7 @@
  */
 package filter;
 
-import bean.User;
+import model.User;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;

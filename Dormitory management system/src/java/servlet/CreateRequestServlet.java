@@ -5,11 +5,9 @@
  */
 package servlet;
 
-import model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,14 +16,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Renter;
-import util.UserUtilities;
+import model.Request;
+import util.RequestUtilities;
 
 /**
  *
  * @author adisorn
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/Login"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "CreateRequestServlet", urlPatterns = {"/CreateRequestServlet"})
+public class CreateRequestServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,24 +39,19 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            request.setCharacterEncoding("UTF-8");
             ServletContext clx = getServletContext();
             Connection conn = (Connection) clx.getAttribute("connection");
-            UserUtilities uutil = new UserUtilities(conn);
-            String usn = (String) request.getParameter("username");
-            String psw = (String) request.getParameter("psw");
-            User user = uutil.getUser(usn, psw);
-            Renter renter = uutil.getRenter(usn);
-            if(user != null && renter != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("user", user);
-                session.setAttribute("renter", renter);
-                response.sendRedirect("index.jsp");
-            }
-            else {
-                request.setAttribute("warningPsw", "Username หรือ Password ผิด กรุณาลองใหม่อีกครั้ง");
-                RequestDispatcher forward = request.getRequestDispatcher("login.jsp");
-                forward.forward(request, response);
-            }
+            HttpSession session = request.getSession();
+            Renter renter = (Renter) session.getAttribute("renter");
+            RequestUtilities rutil = new RequestUtilities(conn);
+            Request req = new Request();
+            req.setReq_title((String) request.getParameter("req_title"));
+            req.setReq_detail((String)request.getParameter("req_detail"));
+            req.setReq_status("waitng");
+            req.setReq_type((String) request.getParameter("req_type"));
+            rutil.addRequest(req, renter.getRenter_id());
+            response.sendRedirect("myrequest.jsp");
         }
     }
 

@@ -16,6 +16,14 @@
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/mymonthly.jsp</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/news.view</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/news.jsp</url-pattern>
+    </filter-mapping>
     <listener>
         <description>ServletContextListener</description>
         <listener-class>listener.Init</listener-class>
