@@ -57,7 +57,8 @@ public class UserUtilities {
                 renter.setRenter_lname(rs.getString("renter_lname"));
                 renter.setRenter_gender(rs.getString("renter_gender"));
                 renter.setRenter_age(rs.getString("renter_age"));
-                renter.setRenter_phone("0"+rs.getString("renter_phone"));
+                renter.setRenter_phone(rs.getString("renter_phone"));
+                renter.setRenter_career(rs.getString("renter_career"));
                 return renter;
             }
         } catch (SQLException ex) {

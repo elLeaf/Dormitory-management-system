@@ -11,18 +11,18 @@ package model;
  */
 public class Request {
     
-    private String req_id;
+    private int req_id;
     private String req_title;
     private String req_detail;
     private String req_date;
     private String req_status;
     private String req_type;
 
-    public String getReq_id() {
+    public int getReq_id() {
         return req_id;
     }
 
-    public void setReq_id(String req_id) {
+    public void setReq_id(int req_id) {
         this.req_id = req_id;
     }
     

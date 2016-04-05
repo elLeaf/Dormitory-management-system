@@ -17,6 +17,7 @@ public class Renter {
     private String renter_gender;
     private String renter_age;
     private String renter_phone;
+    private String renter_career;
     private String renter_address;
 
     public String getRenter_id() {
@@ -66,7 +67,15 @@ public class Renter {
     public void setRenter_phone(String renter_phone) {
         this.renter_phone = renter_phone;
     }
+    
+    public String getRenter_career() {
+        return renter_career;
+    }
 
+    public void setRenter_career(String renter_career) {
+        this.renter_career = renter_career;
+    }
+    
     public String getRenter_address() {
         return renter_address;
     }

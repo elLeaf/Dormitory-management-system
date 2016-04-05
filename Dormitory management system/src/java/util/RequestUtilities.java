@@ -25,34 +25,27 @@ public class RequestUtilities {
         this.conn = conn;
     }
     
-    private String generateId(String s) {
-        String s1 = "r";
-        String[] s2 = s.split("r");
-        int num = Integer.parseInt(s2[1]) + 1;
-        s1 += String.valueOf(num);
-        return s1;
-    }
-    
     public void addRequest(Request req, String renter_id) {
-        String sql1 = "select req_id from REQUESTS";
+        String sql1 = "select max(req_id) as req_id from REQUESTS";
         String sql2 = "insert into REQUESTS values(?,?,?,CURDATE(),?,?,?)";
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql1);
             ResultSet rs = pstmt.executeQuery();
-            String ss = null;
+            int max_id = 0;
             while(rs.next()) {
-                ss = rs.getString("req_id");
+                max_id = rs.getInt("req_id");
             }
-            String s = generateId(ss);
-            
+            max_id++;
             pstmt = conn.prepareStatement(sql2);
-            pstmt.setString(1, s);
+            pstmt.setInt(1, max_id);
             pstmt.setString(2, req.getReq_title());
             pstmt.setString(3, req.getReq_detail());
-            pstmt.setString(4, "waiting");
+            pstmt.setString(4, req.getReq_status());
             pstmt.setString(5, req.getReq_type());
             pstmt.setString(6, renter_id);
             pstmt.executeUpdate();
+            pstmt.close();
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(RequestUtilities.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -46,11 +46,18 @@ public class LoginServlet extends HttpServlet {
             String usn = (String) request.getParameter("username");
             String psw = (String) request.getParameter("psw");
             User user = uutil.getUser(usn, psw);
-            Renter renter = uutil.getRenter(usn);
-            if(user != null && renter != null) {
+            if(user != null) {
                 HttpSession session = request.getSession();
+                if(user.getRole().equals("renter")) {
+                    Renter renter = uutil.getRenter(usn);
+                    if(renter != null) {
+                        session.setAttribute("renter", renter);
+                    }
+                }
+                else if(user.getRole().equals("employee")) {
+                    
+                }
                 session.setAttribute("user", user);
-                session.setAttribute("renter", renter);
                 response.sendRedirect("index.jsp");
             }
             else {

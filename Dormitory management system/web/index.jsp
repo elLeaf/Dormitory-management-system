@@ -19,11 +19,13 @@
         </sql:query>
         <table>
             <tr>
-                <td><a href="profile.jsp">${user.username}</a> 
+                <td><a href="user.jsp">${user.username}</a> 
                 <td><a href="Logout">Logout</a></td>
                 <td><a href="index.jsp" >Home</a></td>
-                <td><a href="mymonthly.jsp">ค่าเช่าประจำเดือน</a></td>
-                <td><a href="myrequest.jsp">คำร้องขอ</a></td>
+                <c:if var="check" test="${user.role=='renter'}">
+                    <td><a href="mymonthly.jsp">ค่าเช่าประจำเดือน</a></td>
+                    <td><a href="myrequest.jsp">คำร้องขอ</a></td>
+                </c:if>
             </tr>
         </table>
         <h1>ยินดีต้อนรับ</h1>
